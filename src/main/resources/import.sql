@@ -1,6 +1,6 @@
 DROP TABLE users IF EXISTS;
 CREATE TABLE IF NOT EXISTS users (id bigserial, name VARCHAR(255), PRIMARY KEY(id));
-INSERT INTO users (name) VALUES ('Bob');
+INSERT INTO users (name) VALUES ('Bob'),('Jack'),('John');
 
 
 DROP TABLE items IF EXISTS;

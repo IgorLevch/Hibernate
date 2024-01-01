@@ -38,8 +38,15 @@ public class User {
     public User() {
     }  // использует дефолтный конструктор, чтобы создать базовый объект
 
-    public void print(){
+   /* public void print(){
         System.out.println("User id = "+id+"; name="+name);
-    }
+    }*/
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
