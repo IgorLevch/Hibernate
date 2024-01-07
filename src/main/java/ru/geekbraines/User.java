@@ -8,12 +8,14 @@ import jakarta.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY) //стратегия Identity означает, что уникальные значения праймери кей будет генерить БД
     @Column(name="id")  // какому столбцу соответствует этот первичный ключ
     private Long id;  // это первичный ключ . Он обязательно должен быть. И Хибернейт на него ориентируется.
 
-    @Column(name="name")
+    @Column(name="name", length = 128, unique = true, nullable = false)
     private String name;
+    @Column(name="score")
+    private String score;
 
     public Long getId() {
         return id;
@@ -31,6 +33,15 @@ public class User {
         this.name = name;
     }   // с пом-ю сеттеров достает объект из базы
 
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
     public User(String name) {
         this.name = name;
     }
@@ -38,8 +49,16 @@ public class User {
     public User() {
     }  // использует дефолтный конструктор, чтобы создать базовый объект
 
-    public void print(){
+   /* public void print(){
         System.out.println("User id = "+id+"; name="+name);
-    }
+    }*/
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", score='" + score + '\'' +
+                '}';
+    }
 }

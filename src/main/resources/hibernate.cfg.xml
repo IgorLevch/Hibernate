@@ -20,7 +20,7 @@
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
 
         <!-- mapping files -->
-        <mapping class="ru.geekbraines.Item"/>
+
         <mapping class="ru.geekbraines.User"/>
 
     </session-factory>
