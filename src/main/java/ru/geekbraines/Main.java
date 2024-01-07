@@ -61,11 +61,13 @@ public class Main {
            // System.out.println(userDao.findByName("Jack"));
 
            // userDao.save(new User("Maxx"));
-            System.out.println(userDao.findAll());
+         //   System.out.println(userDao.findAll());
 
-            userDao.updateNameById(1L,"Zeratul");
+        //    userDao.updateNameById(1L,"Zeratul");
 
-            System.out.println(userDao.findAll());
+         //   System.out.println(userDao.findAll());
+
+            userDao.testCaching();
 
 /*
             Session session = factory.getCurrentSession();  // из фабрики запрашиваем сессию

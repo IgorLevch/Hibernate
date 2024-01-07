@@ -10,6 +10,7 @@ public interface UserDao {
     User findByName(String name);
     void save(User user);
     void updateNameById (Long id, String newName);
+    void testCaching();
 
 
 }

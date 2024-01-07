@@ -119,4 +119,34 @@ public class UserDaoImpl implements UserDao {
 
 
 
-}}
+}
+
+    @Override
+    public void testCaching() {   // это бесполезный метод, для обучения
+
+        try ( Session session = sessionFactoryUtils.getSession()) {//получаем сессию
+            session.beginTransaction(); //  начинаем транзакцию у сессии
+            session.get(User.class, 1L);
+            session.get(User.class, 1L);
+            session.get(User.class, 1L);
+            session.getTransaction().commit();// коммитим транзакцию после работы
+        }
+        try ( Session session = sessionFactoryUtils.getSession()) {//получаем сессию
+            session.beginTransaction(); //  начинаем транзакцию у сессии
+            session.get(User.class, 1L);
+            session.get(User.class, 1L);
+            session.get(User.class, 1L);
+            session.getTransaction().commit();// коммитим транзакцию после работы
+
+            // по резульаттам в логах будет только 2 селекта. Потому что создается контекст (коробка)
+            // и после того , как мы 1й раз туда положили объект из БД. Когда мы запросим второй раз объект с тем же айдишником
+            //  с тем же праймери кей , то Хибернет посмотри в кеш и увидит, что объект с таким праймери кей уже есть и отдаст ссылку на этот
+            // же самый объект.
+            //т.е это кеш на уровне сессии, Хибернет не будет напрягать БД лишний раз
+            // есть еще кеш фабрики (factory)(это кеш второго уровня) -- но его надо очень осторожно исп-ть , т.к. он живет все время работы фабрики ( в отличие от
+            // кеша сесии
+        }
+
+
+    }
+}
