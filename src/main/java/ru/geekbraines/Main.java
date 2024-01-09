@@ -1,8 +1,8 @@
 package ru.geekbraines;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+
+import java.util.List;
 
 public class Main {
 
@@ -31,7 +31,7 @@ public class Main {
             Session session = factory.getCurrentSession();  // из фабрики запрашиваем сессию
             session.beginTransaction();  // открываем транзакцию (любое взаимодействие с БД пороизсодит в рамках траназкции, даже с jdbc)
                                               // сессия создается под каждое действие с БД
-            User oldUser = session.get(User.class, 1L);// пытаемся достать из БД объект из клсса User, с айди =1
+            Product oldUser = session.get(Product.class, 1L);// пытаемся достать из БД объект из клсса Product, с айди =1
             oldUser.print(); // потом печатаем
             session.getTransaction().commit(); // потом коммитим нашу транзакцию
         }catch (Exception e) {
@@ -48,34 +48,50 @@ public class Main {
         SessionFactoryUtils sessionFactoryUtils = new SessionFactoryUtils();
         sessionFactoryUtils.init();
 
-        try {  // далее идет простейая КРУД операция:
-            UserDao userDao = new UserDaoImpl(sessionFactoryUtils);
+        try {
+
+            ProductDao productDao = new ProductDaoImpl(sessionFactoryUtils);
+
+          //  productDao.save(new Product("hhh",56));
+         //   productDao.save(new Product("hhuuh",89));
+            System.out.println(productDao.findById(2L));
+           productDao.updateNameById(2L,"uhahah",7689);
+            System.out.println(productDao.findById(1L));
+            System.out.println(productDao.findById(2L));
+
+          //  System.out.println(productDao.findAll());
 
 
-          /*  User user = userDao.findById(4L);
+          /*  Product user = productDao.findById(4L);
             user.print(); // это пример того, как мы будем делать запрос: я хочу найти пользователя, я хочу его тпечатать.*/
 
 
-           // System.out.println(userDao.findAll());
+           // System.out.println(productDao.findAll());
 
-           // System.out.println(userDao.findByName("Jack"));
+           // System.out.println(productDao.findByName("Jack"));
 
-           // userDao.save(new User("Maxx"));
-         //   System.out.println(userDao.findAll());
+           // productDao.save(new Product("Maxx"));
+         //   System.out.println(productDao.findAll());
 
-        //    userDao.updateNameById(1L,"Zeratul");
+        //    productDao.updateNameById(1L,"Zeratul");
 
-         //   System.out.println(userDao.findAll());
+         //   System.out.println(productDao.findAll());
 
-            userDao.testCaching();
+
 
 /*
             Session session = factory.getCurrentSession();  // из фабрики запрашиваем сессию
             session.beginTransaction();  // открываем транзакцию (любое взаимодействие с БД пороизсодит в рамках траназкции, даже с jdbc)
             // сессия создается под каждое действие с БД
-            User oldUser = session.get(User.class, 1L);// пытаемся достать из БД объект из клсса User, с айди =1
+            Product oldUser = session.get(Product.class, 1L);// пытаемся достать из БД объект из клсса Product, с айди =1
             oldUser.print(); // потом печатаем
             session.getTransaction().commit(); // потом коммитим нашу транзакцию*/
+
+
+
+
+
+
         }catch (Exception e) {
             e.printStackTrace();
         }  finally {

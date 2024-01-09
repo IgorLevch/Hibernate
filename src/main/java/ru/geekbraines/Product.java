@@ -3,19 +3,20 @@ package ru.geekbraines;
 import jakarta.persistence.*;
 
 @Entity    // одно из требований - чтобы объекты класса могли мапиться в БД и обратно -- они должны быть сущностями
-@Table(name="users")  //  с пом-ю этой аннотации помечаю, что я хочу, чтобы объекты этого класса жили в таблице users
+@Table(name="products")  //  с пом-ю этой аннотации помечаю, что я хочу, чтобы объекты этого класса жили в таблице users
 // (лучше указывать в явном виде)
-public class User {
+public class Product {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY) //стратегия Identity означает, что уникальные значения праймери кей будет генерить БД
     @Column(name="id")  // какому столбцу соответствует этот первичный ключ
     private Long id;  // это первичный ключ . Он обязательно должен быть. И Хибернейт на него ориентируется.
 
-    @Column(name="name", length = 128, unique = true, nullable = false)
-    private String name;
-    @Column(name="score")
-    private String score;
+    @Column(name="title", length = 128, unique = true, nullable = false)
+    private String title;
+
+    @Column(name="price")
+    private Integer Price;
 
     public Long getId() {
         return id;
@@ -25,40 +26,41 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }  // c пом-ю геттеров отправляет объект в базу
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }   // с пом-ю сеттеров достает объект из базы
 
 
-    public String getScore() {
-        return score;
+    public Integer getPrice() {
+        return Price;
     }
 
-    public void setScore(String score) {
-        this.score = score;
+    public void setPrice(Integer price) {
+        Price = price;
     }
 
-    public User(String name) {
-        this.name = name;
+    public Product() {
     }
 
-    public User() {
-    }  // использует дефолтный конструктор, чтобы создать базовый объект
+    public Product(String title, Integer price) {
 
-   /* public void print(){
-        System.out.println("User id = "+id+"; name="+name);
-    }*/
+        this.title = title;
+        Price = price;
+    }
+
+    // использует дефолтный конструктор, чтобы создать базовый объект
+
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Product{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", score='" + score + '\'' +
+                ", title='" + title + '\'' +
+                ", Price=" + Price +
                 '}';
     }
 }
