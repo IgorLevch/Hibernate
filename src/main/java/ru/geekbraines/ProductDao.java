@@ -8,7 +8,6 @@ public interface ProductDao {
     List<Product> findAll();
     Product findByName(String title);
     void save(Product product);
-    void updateNameById (Long id, String newTitle, Integer newPrice);
-
+    void updateTitleById(Long id, String newTitle, Integer newPrice);
 
 }

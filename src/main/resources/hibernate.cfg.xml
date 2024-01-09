@@ -9,7 +9,7 @@
 
         <!-- properties -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/Hibernate_Lesson11?createDatabaseIfNotExist=true&amp;serverTimezone=UTC</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hibernate_Lesson11_2?createDatabaseIfNotExist=true&amp;serverTimezone=UTC</property>
         <property name="connection.username">root</property>
         <property name="connection.password">as56df</property>
         <property name="connection.pool_size">2</property>
@@ -27,7 +27,7 @@
         <!-- mapping files -->
 
         <mapping class="ru.geekbraines.Product"/>
-        <mapping class="ru.geekbraines.ProductDaoImpl"/>
+
 
     </session-factory>
 
