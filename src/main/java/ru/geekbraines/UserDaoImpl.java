@@ -149,4 +149,18 @@ public class UserDaoImpl implements UserDao {
 
 
     }
+
+    @Override
+    public void trick() {    // метод 6 го урока
+        System.out.println("==========================");
+        try(Session session = sessionFactoryUtils.getSession()){
+            session.beginTransaction();
+            User user = session.get(User.class, 1L);
+            user.setScore(90);
+
+            session.getTransaction().commit();   // отдельно save or Update делать не надо. Commit это сделает сам
+
+        }
+        System.out.println("==========================");
+    }
 }

@@ -15,7 +15,7 @@ public class User {
     @Column(name="name", length = 128, unique = true, nullable = false)
     private String name;
     @Column(name="score")
-    private String score;
+    private Integer score;
 
     public Long getId() {
         return id;
@@ -34,11 +34,11 @@ public class User {
     }   // с пом-ю сеттеров достает объект из базы
 
 
-    public String getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 

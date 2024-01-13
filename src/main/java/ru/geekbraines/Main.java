@@ -67,7 +67,10 @@ public class Main {
 
          //   System.out.println(userDao.findAll());
 
-            userDao.testCaching();
+          //  userDao.testCaching();
+
+            userDao.trick();
+            System.out.println(userDao.findAll());
 
 /*
             Session session = factory.getCurrentSession();  // из фабрики запрашиваем сессию
