@@ -16,6 +16,22 @@ public class User {
     private String name;
     @Column(name="score")
     private Integer score;
+    @OneToOne  // означает, что один сотрудник связан с одной деталью.
+    // читается слева - направо: левое слово One относится к нашему классу (User), правое слово One - к классу UserDetails
+    // и означает, что один Юзер может ссылаться на один объект ЮзерДитейлс
+    // details_id -- внешний ключ
+    @JoinColumn(name="details_id")
+    //@PrimaryKeyJoinColumn можно еще такой аннотацией настроить OneToOne - это обощий первичный ключ
+    // сотруднику с айдишником 5 будет соответствовать ЮзерДетейлс с айди 5
+    private UserDetails details;
+
+    public UserDetails getDetails() {
+        return details;
+    }
+
+    public void setDetails(UserDetails details) {
+        this.details = details;
+    }
 
     public Long getId() {
         return id;

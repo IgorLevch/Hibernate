@@ -22,6 +22,11 @@
         <!-- mapping files -->
 
         <mapping class="ru.geekbraines.User"/>
+        <mapping class="ru.geekbraines.UserDetails"/>
+        <mapping class="one_to_many_and_back.Student"/>
+        <mapping class="one_to_many_and_back.University"/>
+        <mapping class="many_to_many.Book"/>
+        <mapping class="many_to_many.Reader"/>
 
     </session-factory>
 

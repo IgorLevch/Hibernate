@@ -50,6 +50,7 @@ public class Main {
 
         try {  // далее идет простейая КРУД операция:
             UserDao userDao = new UserDaoImpl(sessionFactoryUtils);
+            UserDetailsImpl userDet = new UserDetailsImpl(sessionFactoryUtils);
 
 
           /*  User user = userDao.findById(4L);
@@ -69,8 +70,14 @@ public class Main {
 
           //  userDao.testCaching();
 
-            userDao.trick();
-            System.out.println(userDao.findAll());
+            /*userDao.trick();
+            System.out.println(userDao.findAll());*/
+
+            userDao.findById(1L);
+            System.out.println(userDao);
+            userDet.findById(1L);
+            System.out.println(userDet);
+
 
 /*
             Session session = factory.getCurrentSession();  // из фабрики запрашиваем сессию
