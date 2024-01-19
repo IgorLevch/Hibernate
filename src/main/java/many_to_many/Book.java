@@ -58,4 +58,8 @@ public class Book {
                 ", readers=" + readers +
                 '}';
     }
+
+
+    public Book() {
+    }
 }

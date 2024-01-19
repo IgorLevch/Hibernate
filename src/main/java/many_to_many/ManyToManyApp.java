@@ -4,12 +4,18 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import validation.PrepareDataApp;
 
 import java.util.List;
 
 public class ManyToManyApp {
 
     public static void main(String[] args) {
+
+        PrepareDataApp.forcePrepareData();
+
+
+
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
                 .buildSessionFactory();

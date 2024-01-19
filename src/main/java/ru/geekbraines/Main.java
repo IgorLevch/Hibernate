@@ -3,6 +3,7 @@ package ru.geekbraines;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import validation.PrepareDataApp;
 
 public class Main {
 
@@ -44,6 +45,9 @@ public class Main {
     }*/
 
     public static void main(String[] args) {
+        PrepareDataApp.forcePrepareData();
+
+
 
         SessionFactoryUtils sessionFactoryUtils = new SessionFactoryUtils();
         sessionFactoryUtils.init();

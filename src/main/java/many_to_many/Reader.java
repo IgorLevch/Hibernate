@@ -56,4 +56,7 @@ public class Reader {
                 ", books=" + books +
                 '}';
     }
+
+    public Reader() {
+    }
 }
