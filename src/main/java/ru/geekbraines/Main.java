@@ -1,45 +1,99 @@
 package ru.geekbraines;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
-    //при работе с хибернет первым делом нужно создать фабрику сессий.
-    private static SessionFactory factory;
-    public static void init(){
-        factory =    new Configuration()       // фабрика создается следующим образом -- говорим , что есть Configuration
-                .configure("hibernate.cfg.xml")    //  из файла hibernate.cfg.xml
-                .buildSessionFactory();                      //  и мы хотим создать buildSessionFactory();
-        // SessionFactory -- тяжеловесный объект, его не надо создавать на каждый случай. Закрываем его, только когда работа приложения
-        // завершается
-        // session -- это единица работы с БД
-
-    }
-    public static void shutdown(){
-        // если фабрика не пустая - то мы ее закрываем
-        if (factory !=null){  // это чтобы не словить NullPOinterExceprion
-            factory.close();
-        }
-    }
 
     public static void main(String[] args) {
 
-        try {  // далее идет простейая КРУД операция:
-            init();
-            Session session = factory.getCurrentSession();  // из фабрики запрашиваем сессию
-            session.beginTransaction();  // открываем транзакцию (любое взаимодействие с БД пороизсодит в рамках траназкции, даже с jdbc)
-                                              // сессия создается под каждое действие с БД
-            User oldUser = session.get(User.class, 1L);// пытаемся достать из БД объект из клсса User, с айди =1
-            oldUser.print(); // потом печатаем
-            session.getTransaction().commit(); // потом коммитим нашу транзакцию
-        }catch (Exception e) {
-            e.printStackTrace();
-        }  finally {
-           shutdown();
+        SessionFactoryUtils sessionFactoryUtils = new SessionFactoryUtils();
+        sessionFactoryUtils.init();
+        try {
+
+            Session session = sessionFactoryUtils.getSession();  // из фабрики запрашиваем сессию
+            session.beginTransaction();
+            BuyerDao bd = new BuyerDaoImpl(sessionFactoryUtils);
+            Buyer buyer = new Buyer("John");
+            bd.save(new Buyer("Goga"));
+            bd.save(new Buyer("Vaso"));
+            bd.save(new Buyer("Vityai"));
+
+            System.out.println(bd.findAll());
+
+           buyer.getProducts().forEach(System.out::println);
+
+
+          //  ProductDao pd = new ProductDaoImpl(sessionFactoryUtils);
+      //  pd.save(new Product("ffdgf", 456546));
+      //  pd.save(new Product("iyuyu", 35344));
+         //   System.out.println(pd.findAll()+"  all items");
+
+          //  System.out.println(pd.findById(1L));
+            //   pd.save(new Product("jhkhkh", 345));
+
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
 
-    }
-}
+
+        try{
+
+            Session session = sessionFactoryUtils.getSession();  // из фабрики запрашиваем сессию
+            session.beginTransaction();
+            ProductDao pd = new ProductDaoImpl(sessionFactoryUtils);
+        pd.save(new Product("cacao",87,new Buyer("Oleg")));
+        pd.save(new Product("sugar",8897,new Buyer("Vlad")));
+
+            System.out.println(pd.findAll());
+
+            session.getTransaction().commit();
+
+    } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Session session = null;
+        try{
+            session= sessionFactoryUtils.getSession();
+            session.beginTransaction();
+
+
+            Buyer b1 = session.get(Buyer.class, 1L);
+            System.out.println(b1.getProducts().get(0).getTitle());
+
+            System.out.println(b1);
+            session.getTransaction().commit();
+
+
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+
+        try{
+            session= sessionFactoryUtils.getSession();
+            session.beginTransaction();
+
+
+            Product p1 = session.get(Product.class, 1L);
+            System.out.println(p1.getBuyer().getName());
+
+            System.out.println(p1);
+            session.getTransaction().commit();
+
+
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        } sessionFactoryUtils.shutdown();
+
+
+
+    }}
