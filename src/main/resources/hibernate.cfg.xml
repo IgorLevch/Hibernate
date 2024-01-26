@@ -27,6 +27,7 @@
         <!-- mapping files -->
 
         <mapping class="ru.geekbraines.Product"/>
+        <mapping class="ru.geekbraines.Buyer"/>
 
 
     </session-factory>

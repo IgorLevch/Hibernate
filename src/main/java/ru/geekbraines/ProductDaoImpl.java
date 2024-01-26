@@ -1,11 +1,13 @@
 package ru.geekbraines;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class ProductDaoImpl implements ProductDao {
-
+    @Autowired
     private SessionFactoryUtils sessionFactoryUtils;
 
     public ProductDaoImpl(SessionFactoryUtils sessionFactoryUtils) {

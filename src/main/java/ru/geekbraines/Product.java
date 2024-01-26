@@ -43,11 +43,24 @@ public class Product {
     }
 
 
-    public Product(String title, Integer price) {
+    public Product(String title, Integer price, Buyer buyer) {
         this.title = title;
         this.price = price;
+        this.buyer = buyer;
     }
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "buyer_id")
+    private Buyer buyer;
+
+
+    public Buyer getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(Buyer buyer) {
+        this.buyer = buyer;
+    }
 
     @Override
     public String toString() {
@@ -55,6 +68,7 @@ public class Product {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", price=" + price +
+                ", buyer=" + buyer +
                 '}';
     }
 }
