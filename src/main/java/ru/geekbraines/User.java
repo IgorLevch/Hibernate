@@ -8,12 +8,30 @@ import jakarta.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY) //стратегия Identity означает, что уникальные значения праймери кей будет генерить БД
     @Column(name="id")  // какому столбцу соответствует этот первичный ключ
     private Long id;  // это первичный ключ . Он обязательно должен быть. И Хибернейт на него ориентируется.
 
-    @Column(name="name")
+    @Column(name="name", length = 128, unique = true, nullable = false)
     private String name;
+    @Column(name="score")
+    private Integer score;
+    @OneToOne  // означает, что один сотрудник связан с одной деталью.
+    // читается слева - направо: левое слово One относится к нашему классу (User), правое слово One - к классу UserDetails
+    // и означает, что один Юзер может ссылаться на один объект ЮзерДитейлс
+    // details_id -- внешний ключ
+    @JoinColumn(name="details_id")
+    //@PrimaryKeyJoinColumn можно еще такой аннотацией настроить OneToOne - это обощий первичный ключ
+    // сотруднику с айдишником 5 будет соответствовать ЮзерДетейлс с айди 5
+    private UserDetails details;
+
+    public UserDetails getDetails() {
+        return details;
+    }
+
+    public void setDetails(UserDetails details) {
+        this.details = details;
+    }
 
     public Long getId() {
         return id;
@@ -31,6 +49,15 @@ public class User {
         this.name = name;
     }   // с пом-ю сеттеров достает объект из базы
 
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
     public User(String name) {
         this.name = name;
     }
@@ -38,8 +65,16 @@ public class User {
     public User() {
     }  // использует дефолтный конструктор, чтобы создать базовый объект
 
-    public void print(){
+   /* public void print(){
         System.out.println("User id = "+id+"; name="+name);
-    }
+    }*/
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", score='" + score + '\'' +
+                '}';
+    }
 }
